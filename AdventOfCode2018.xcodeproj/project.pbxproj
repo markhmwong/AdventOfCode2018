@@ -15,6 +15,8 @@
 		4DE165F621CB8763002DEE3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE165F421CB8763002DEE3E /* LaunchScreen.storyboard */; };
 		4DE1660121CB8763002DEE3E /* AdventOfCode2018Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE1660021CB8763002DEE3E /* AdventOfCode2018Tests.swift */; };
 		4DE1660C21CB8763002DEE3E /* AdventOfCode2018UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE1660B21CB8763002DEE3E /* AdventOfCode2018UITests.swift */; };
+		4DE1661B21CB9171002DEE3E /* Day1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE1661A21CB9171002DEE3E /* Day1.swift */; };
+		4DE1661D21CC96C5002DEE3E /* Day2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE1661C21CC96C5002DEE3E /* Day2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		4DE1660721CB8763002DEE3E /* AdventOfCode2018UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdventOfCode2018UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE1660B21CB8763002DEE3E /* AdventOfCode2018UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventOfCode2018UITests.swift; sourceTree = "<group>"; };
 		4DE1660D21CB8763002DEE3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DE1661A21CB9171002DEE3E /* Day1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day1.swift; sourceTree = "<group>"; };
+		4DE1661C21CC96C5002DEE3E /* Day2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 			children = (
 				4DE165E821CB8760002DEE3E /* AppDelegate.swift */,
 				4DE165EA21CB8760002DEE3E /* ViewController.swift */,
+				4DE1661921CB915D002DEE3E /* Challenges */,
 				4DE165EC21CB8760002DEE3E /* Main.storyboard */,
 				4DE165F221CB8763002DEE3E /* Assets.xcassets */,
 				4DE165F421CB8763002DEE3E /* LaunchScreen.storyboard */,
@@ -126,6 +131,15 @@
 				4DE1660D21CB8763002DEE3E /* Info.plist */,
 			);
 			path = AdventOfCode2018UITests;
+			sourceTree = "<group>";
+		};
+		4DE1661921CB915D002DEE3E /* Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				4DE1661A21CB9171002DEE3E /* Day1.swift */,
+				4DE1661C21CC96C5002DEE3E /* Day2.swift */,
+			);
+			path = Challenges;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +273,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DE1661B21CB9171002DEE3E /* Day1.swift in Sources */,
+				4DE1661D21CC96C5002DEE3E /* Day2.swift in Sources */,
 				4DE165EB21CB8760002DEE3E /* ViewController.swift in Sources */,
 				4DE165F121CB8760002DEE3E /* AdventOfCode2018.xcdatamodeld in Sources */,
 				4DE165E921CB8760002DEE3E /* AppDelegate.swift in Sources */,
