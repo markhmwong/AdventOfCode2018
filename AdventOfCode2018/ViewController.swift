@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     //Day 2 Challenge
     func checksum() {
         var day2 = Day2()
-        day2.part1()
+        day2.part2()
     }
 
     //Day 1 Challenge

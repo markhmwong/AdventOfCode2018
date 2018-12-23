@@ -10,7 +10,122 @@ import Foundation
 
 //  Counting the occurrence of a character per line/string
 //  Do a product of the frequency of each character
+//https://github.com/virumax/Levenshtein-swift4/blob/master/Tools.swift
+class Tools {
+    
+    private class func min(numbers: Int...) -> Int {
+        return numbers.reduce(numbers[0]) {$0 < $1 ? $0 : $1}
+    }
+    
+    class Array2D {
+        var cols:Int, rows:Int
+        var matrix: [Int]
+        
+        
+        init(cols:Int, rows:Int) {
+            self.cols = cols
+            self.rows = rows
+            matrix = Array(repeating:0, count:cols*rows)
+        }
+        
+        subscript(col:Int, row:Int) -> Int {
+            get {
+                return matrix[cols * row + col]
+            }
+            set {
+                matrix[cols*row+col] = newValue
+            }
+        }
+        
+        func colCount() -> Int {
+            return self.cols
+        }
+        
+        func rowCount() -> Int {
+            return self.rows
+        }
+    }
+    
+    class func levenshtein(aStr: String, bStr: String) -> Int {
+        let a = Array(aStr.utf16)
+        let b = Array(bStr.utf16)
+        
+        let dist = Array2D(cols: a.count + 1, rows: b.count + 1)
+        
+        for i in 1...a.count {
+            dist[i, 0] = i
+        }
+        
+        for j in 1...b.count {
+            dist[0, j] = j
+        }
+        
+        for i in 1...a.count {
+            for j in 1...b.count {
+                if a[i-1] == b[j-1] {
+                    dist[i, j] = dist[i-1, j-1]  // noop
+                } else {
+                    dist[i, j] = min(
+                        numbers: dist[i-1, j] + 1,  // deletion
+                        dist[i, j-1] + 1,  // insertion
+                        dist[i-1, j-1] + 1  // substitution
+                    )
+                }
+            }
+        }
+        return dist[a.count, b.count]
+    }
+}
 
+
+//https://gist.github.com/RuiCarneiro/82bf91214e3e09222233b1fc04139c86
+extension String {
+    subscript(index: Int) -> Character {
+        return self[self.index(self.startIndex, offsetBy: index)]
+    }
+}
+
+extension String {
+    public func levenshtein(_ other: String) -> Int {
+        let sCount = self.count
+        let oCount = other.count
+        
+        guard sCount != 0 else {
+            return oCount
+        }
+        
+        guard oCount != 0 else {
+            return sCount
+        }
+        
+        let line : [Int]  = Array(repeating: 0, count: oCount + 1)
+        var mat : [[Int]] = Array(repeating: line, count: sCount + 1)
+        
+        for i in 0...sCount {
+            mat[i][0] = i
+        }
+        
+        for j in 0...oCount {
+            mat[0][j] = j
+        }
+        
+        for j in 1...oCount {
+            for i in 1...sCount {
+                if self[i - 1] == other[j - 1] {
+                    mat[i][j] = mat[i - 1][j - 1]       // no operation
+                }
+                else {
+                    let del = mat[i - 1][j] + 1         // deletion
+                    let ins = mat[i][j - 1] + 1         // insertion
+                    let sub = mat[i - 1][j - 1] + 1     // substitution
+                    mat[i][j] = min(min(del, ins), sub)
+                }
+            }
+        }
+        
+        return mat[sCount][oCount]
+    }
+}
 
 struct Day2 {
     
@@ -21,7 +136,23 @@ struct Day2 {
         //find the letters that are common between the two strings
         //perhaps sort the string first
         //then compare
-        //
+        
+        let data = self.prepareArrForReadability(data: self.rawData)
+        
+        let result = Tools.levenshtein(aStr: "abcde", bStr: "axcyea")
+        print("result \(result)")
+        
+        for (indexi, stringA) in data.enumerated() {
+            for indexj in stride(from: indexi, to: data.count, by: 1) {
+                let levDist = Tools.levenshtein(aStr: String(data[indexi]), bStr: String(data[indexj]))
+                if levDist == 1 {
+                    print(data[indexi])
+                    print(data[indexj])
+                }
+//                print("----")
+            }
+        }
+        print("complete")
     }
     
     func part1() -> Void {
@@ -35,7 +166,6 @@ struct Day2 {
             if (d) {
                 doubles += 1
             }
-            
             if (t) {
                 triples += 1
             }
@@ -62,9 +192,19 @@ struct Day2 {
         return (double: charDict.values.contains(2), triple: charDict.values.contains(3))
     }
     
-    func prepareArrForReadability(data: String) -> [String.SubSequence] {
-        return data.split(separator: "\n")
+    func prepareArrForReadability<T: StringProtocol>(data: T) -> [String.SubSequence] {
+        return data.split(separator: "\n") as! [String.SubSequence]
     }
+    
+    let siteDataPart2: String = """
+    abcde
+    fghij
+    klmno
+    pqrst
+    fguij
+    axcye
+    wvxyz
+    """
     
     let siteData: String = """
         abcdef
